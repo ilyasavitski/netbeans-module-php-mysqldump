@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+AutoUpdate-Show-In-Client: true
+OpenIDE-Module: ilyasavitski.mysqldump
+OpenIDE-Module-Localizing-Bundle: ilyasavitski/mysqldump/Bundle.properties
+OpenIDE-Module-Requires: org.openide.windows.IOProvider
+OpenIDE-Module-Specification-Version: 1.0
+
