@@ -14,7 +14,7 @@ import org.openide.util.ChangeSupport;
 
 /**
  *
- * @author s4va
+ * @author ilyasavitski
  */
 public class MysqldumpCustomizerPanel extends javax.swing.JPanel {
 

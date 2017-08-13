@@ -5,15 +5,9 @@
  */
 package ilyasavitski.mysqldump.utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import org.netbeans.api.annotations.common.NonNull;
-
 /**
  *
- * @author s4va
+ * @author ilyasavitski
  */
 public class StringUtils {
 
@@ -28,40 +22,6 @@ public class StringUtils {
      */
     public static boolean isEmpty(String string) {
         return string == null || string.isEmpty();
-    }
-
-    /**
-     * Implode list.
-     *
-     * @param list list
-     * @param delimiter delimiter
-     * @return imploded string with delimiter
-     */
-    public static String implode(@NonNull List<String> list, @NonNull String delimiter) {
-        StringBuilder sb = new StringBuilder();
-        boolean isFirst = true;
-        for (String string : list) {
-            if (!isFirst) {
-                sb.append(delimiter);
-            }
-            sb.append(string);
-            isFirst = false;
-        }
-        return sb.toString();
-    }
-
-    /**
-     * Explode string with delimiter.
-     *
-     * @param target string
-     * @param delimiter delimiter
-     * @return exploded list with delimiter
-     */
-    public static List<String> explode(@NonNull String target, String delimiter) {
-        if (target.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return new ArrayList<String>(Arrays.asList(target.split(delimiter)));
     }
 
     /**

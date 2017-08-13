@@ -5,55 +5,48 @@
  */
 package ilyasavitski.mysqldump;
 
+import ilyasavitski.mysqldump.utils.ProjectUtils;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-//import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
-//import java.io.InputStream;
 import java.io.InputStreamReader;
-//import java.util.prefs.Preferences;
+import java.io.OutputStreamWriter;
+import java.lang.ProcessBuilder.Redirect;
 import org.netbeans.api.project.Project;
-//import org.netbeans.api.project.ProjectUtils;
-//import org.openide.*;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
-import org.openide.filesystems.FileObject;
-//import org.openide.filesystems.FileUtil;
-//import org.openide.util.Exceptions;
+import org.openide.util.Exceptions;
 import org.openide.util.NbBundle.Messages;
 import org.openide.windows.IOProvider;
 import org.openide.windows.InputOutput;
-//import org.netbeans.api.project.ui.OpenProjects;
-//import org.openide.util.Lookup;
-//import org.openide.util.Utilities;
-import ilyasavitski.mysqldump.MysqldumpPreferences;
 
 @ActionID(
         category = "Project",
-        id = "ilyasavitski.mysqldump.MysqldumpActionListener"
+        id = "ilyasavitski.mysqldump.MysqldumpRestoreActionListener"
 )
 @ActionRegistration(
-        displayName = "#CTL_MysqldumpActionListener"
+        displayName = "#CTL_MysqldumpRestoreActionListener"
 )
 @ActionReference(path = "Projects/Actions", position = 0)
-@Messages("CTL_MysqldumpActionListener=Backup Database")
-public final class MysqldumpActionListener implements ActionListener {
+@Messages("CTL_MysqldumpRestoreActionListener=Restore Database")
+public final class MysqldumpRestoreActionListener implements ActionListener {
 
     private final Project project;
-    private InputOutput io = IOProvider.getDefault().getIO("Backup Database", true);
+    private InputOutput io = IOProvider.getDefault().getIO("Database", false);
 
-    public MysqldumpActionListener(Project context) {
-        this.project = context;
+    public MysqldumpRestoreActionListener(Project project) {
+        this.project = project;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         Project project;
-        String dumpCommand,
-                projectPath,
+        String projectPath,
                 databaseHost,
                 databaseName,
                 databaseUser,
@@ -62,7 +55,7 @@ public final class MysqldumpActionListener implements ActionListener {
         io.select();
 
         project = this.project;
-        projectPath = getProjectDirectory(project);
+        projectPath = ProjectUtils.getProjectDirectory(project, io);
 
         databaseHost = MysqldumpPreferences.getDatabaseHost(project);
         databaseName = MysqldumpPreferences.getDatabaseName(project);
@@ -86,31 +79,45 @@ public final class MysqldumpActionListener implements ActionListener {
             io.getOut().println("Database host: " + databaseHost);
             io.getOut().println("Database name: " + databaseName);
             io.getOut().println("Database user: " + databaseUser);
-            io.getOut().println("Database password: " + databasePassword);
 
-            dumpCommand = "mysqldump -h " + databaseHost + " -u " + databaseUser + " -p" + databasePassword + " -c --add-drop-table --add-locks --quick --verbose --lock-tables " + databaseName + " -r " + projectPath + "/" + databaseName + ".dev.sql";
+            ProcessBuilder processBuilder;
+            File backupFile = new File(projectPath + File.separator + databaseName + ".dev.sql");
 
             try {
-                Process proc = Runtime.getRuntime().exec(dumpCommand);
 
-                BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-                BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+                processBuilder = new ProcessBuilder(
+                        "mysql",
+                        "--host=" + databaseHost,
+                        "--user=" + databaseUser,
+                        "--password=" + databasePassword,
+                        databaseName
+                );
 
+                processBuilder.redirectError(Redirect.INHERIT);
+                processBuilder.redirectInput(Redirect.from(backupFile));
+                Process process = processBuilder.start();
+
+                BufferedReader output = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                BufferedReader errors = new BufferedReader(new InputStreamReader(process.getErrorStream()));
                 String s = null;
-                while ((s = stdInput.readLine()) != null) {
+                while ((s = output.readLine()) != null) {
                     io.getOut().println(s);
                 }
 
-                while ((s = stdError.readLine()) != null) {
+                while ((s = errors.readLine()) != null) {
                     io.getErr().println(s);
                 }
 
-                io.getOut().println("Database " + databaseName + " was successfully dumped to " + projectPath);
+                process.waitFor();
+
+                io.getOut().println("Database " + databaseName + " was successfully restored from " + projectPath);
 
             } catch (IOException ex) {
 
                 io.getErr().println(ex.getMessage());
                 ex.printStackTrace();
+            } catch (InterruptedException ex) {
+                Exceptions.printStackTrace(ex);
             }
         }
 
@@ -118,24 +125,4 @@ public final class MysqldumpActionListener implements ActionListener {
         io.getErr().close();
     }
 
-    private String getProjectDirectory(final Project project) {
-
-        try {
-
-            FileObject projectDirectory;
-            String projectPath;
-
-            projectDirectory = (FileObject) project.getProjectDirectory();
-            projectPath = projectDirectory.getPath();
-
-            return projectPath;
-
-        } catch (Exception e) {
-
-            io.getErr().println(e.getMessage());
-
-            return null;
-        }
-
-    }
 }

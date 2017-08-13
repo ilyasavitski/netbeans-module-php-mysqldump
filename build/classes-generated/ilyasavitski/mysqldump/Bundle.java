@@ -4,10 +4,17 @@ package ilyasavitski.mysqldump;
 class Bundle {
     /**
      * @return <i>Backup Database</i>
-     * @see MysqldumpActionListener
+     * @see MysqldumpBackupActionListener
      */
-    static String CTL_MysqldumpActionListener() {
-        return org.openide.util.NbBundle.getMessage(Bundle.class, "CTL_MysqldumpActionListener");
+    static String CTL_MysqldumpBackupActionListener() {
+        return org.openide.util.NbBundle.getMessage(Bundle.class, "CTL_MysqldumpBackupActionListener");
+    }
+    /**
+     * @return <i>Restore Database</i>
+     * @see MysqldumpRestoreActionListener
+     */
+    static String CTL_MysqldumpRestoreActionListener() {
+        return org.openide.util.NbBundle.getMessage(Bundle.class, "CTL_MysqldumpRestoreActionListener");
     }
     /**
      * @return <i>Mysqldump</i>

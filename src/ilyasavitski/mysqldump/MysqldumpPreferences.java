@@ -12,7 +12,7 @@ import org.netbeans.api.project.ProjectUtils;
 
 /**
  *
- * @author s4va
+ * @author ilyasavitski
  */
 public final class MysqldumpPreferences {
 

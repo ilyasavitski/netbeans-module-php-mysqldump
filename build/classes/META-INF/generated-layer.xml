@@ -4,14 +4,25 @@
 <filesystem>
     <folder name="Actions">
         <folder name="Project">
-            <file name="ilyasavitski-mysqldump-MysqldumpActionListener.instance">
-                <!--ilyasavitski.mysqldump.MysqldumpActionListener-->
+            <file name="ilyasavitski-mysqldump-MysqldumpBackupActionListener.instance">
+                <!--ilyasavitski.mysqldump.MysqldumpBackupActionListener-->
                 <attr
-                    bundlevalue="ilyasavitski.mysqldump.Bundle#CTL_MysqldumpActionListener" name="displayName"/>
+                    bundlevalue="ilyasavitski.mysqldump.Bundle#CTL_MysqldumpBackupActionListener" name="displayName"/>
                 <attr methodvalue="org.openide.awt.Actions.context" name="instanceCreate"/>
                 <attr name="type" stringvalue="org.netbeans.api.project.Project"/>
                 <attr methodvalue="org.openide.awt.Actions.inject" name="delegate"/>
-                <attr name="injectable" stringvalue="ilyasavitski.mysqldump.MysqldumpActionListener"/>
+                <attr name="injectable" stringvalue="ilyasavitski.mysqldump.MysqldumpBackupActionListener"/>
+                <attr name="selectionType" stringvalue="EXACTLY_ONE"/>
+                <attr boolvalue="false" name="noIconInMenu"/>
+            </file>
+            <file name="ilyasavitski-mysqldump-MysqldumpRestoreActionListener.instance">
+                <!--ilyasavitski.mysqldump.MysqldumpRestoreActionListener-->
+                <attr
+                    bundlevalue="ilyasavitski.mysqldump.Bundle#CTL_MysqldumpRestoreActionListener" name="displayName"/>
+                <attr methodvalue="org.openide.awt.Actions.context" name="instanceCreate"/>
+                <attr name="type" stringvalue="org.netbeans.api.project.Project"/>
+                <attr methodvalue="org.openide.awt.Actions.inject" name="delegate"/>
+                <attr name="injectable" stringvalue="ilyasavitski.mysqldump.MysqldumpRestoreActionListener"/>
                 <attr name="selectionType" stringvalue="EXACTLY_ONE"/>
                 <attr boolvalue="false" name="noIconInMenu"/>
             </file>
@@ -19,9 +30,14 @@
     </folder>
     <folder name="Projects">
         <folder name="Actions">
-            <file name="ilyasavitski-mysqldump-MysqldumpActionListener.shadow">
-                <!--ilyasavitski.mysqldump.MysqldumpActionListener-->
-                <attr name="originalFile" stringvalue="Actions/Project/ilyasavitski-mysqldump-MysqldumpActionListener.instance"/>
+            <file name="ilyasavitski-mysqldump-MysqldumpBackupActionListener.shadow">
+                <!--ilyasavitski.mysqldump.MysqldumpBackupActionListener-->
+                <attr name="originalFile" stringvalue="Actions/Project/ilyasavitski-mysqldump-MysqldumpBackupActionListener.instance"/>
+                <attr intvalue="0" name="position"/>
+            </file>
+            <file name="ilyasavitski-mysqldump-MysqldumpRestoreActionListener.shadow">
+                <!--ilyasavitski.mysqldump.MysqldumpRestoreActionListener-->
+                <attr name="originalFile" stringvalue="Actions/Project/ilyasavitski-mysqldump-MysqldumpRestoreActionListener.instance"/>
                 <attr intvalue="0" name="position"/>
             </file>
         </folder>
