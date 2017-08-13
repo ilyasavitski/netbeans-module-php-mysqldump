@@ -5,19 +5,19 @@
  */
 package ilyasavitski.mysqldump;
 
-import java.awt.BorderLayout;
+//import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.prefs.Preferences;
+//import java.util.prefs.Preferences;
 import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JCheckBox;
+//import javax.swing.JPanel;
+//import javax.swing.JLabel;
+//import javax.swing.JTextField;
+//import javax.swing.JCheckBox;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.netbeans.api.project.Project;
-import org.netbeans.api.project.ProjectUtils;
+//import org.netbeans.api.project.ProjectUtils;
 import org.netbeans.spi.project.ui.support.ProjectCustomizer;
 import org.netbeans.spi.project.ui.support.ProjectCustomizer.Category;
 import org.openide.util.Lookup;

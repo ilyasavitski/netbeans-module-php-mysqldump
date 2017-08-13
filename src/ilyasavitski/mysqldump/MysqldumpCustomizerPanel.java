@@ -5,7 +5,7 @@
  */
 package ilyasavitski.mysqldump;
 
-import ilyasavitski.mysqldump.utils.StringUtils;
+//import ilyasavitski.mysqldump.utils.StringUtils;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
